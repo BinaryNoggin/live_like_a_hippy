@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Live Like a Hippy</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Live Like a Hippy
+
+---
+
+# Who am I?
+
+* Amos King - @adkron
+* @adkron
+* Binary Noggin
+* This Agile Life
+
+---
+
+Kids
+
+???
+
+I like to spawn processes
+I'm almost like Johny
+
+---
+
+# What does it mean to live like a hippy?
+
+---
+
+# Why?
+
+* Security - Attack footprint
+* Uncle Bob - Put off peristance as long as possible
+* Deployment
+* Dependencies
+
+---
+
+# Live Like a Hoarder
+=====================
+
+1. Classify your junk
+2. Put it in the right place
+3. Protect your junk
+
+---
+
+Premanent
+=========
+
+* Static
+* Changing
+
+---
+
+Temporary
+=========
+
+* Temporal
+* Transient
+* Ephemeral
+
+---
+
+Using the DB
+============
+
+---
+
+Agent
+=====
+
+---
+
+Storing the entire Map
+
+---
+
+What about crashes?
+
+???
+
+Move business logic away from
+
+Keep the data you are storing focued
+"Keep state together that changes together"
+
+It will fail so let it fail
+
+---
+
+GenServer
+=========
+
+???
+
+Call vs Cast to push data
+
+Callbacks
+
+Custom termination logic
+
+---
+
+Gotchas
+=======
+
+* Expiration
+* Distributed
+* Binary Data
+
+???
+
+Memory bloat
+Signed Keys and user id in url
+
+cachex - elixir lib
+ecache - erlang lib
+
+Phoenix.Presence
+Chris McCord ElixirConf EU 2016 - Phoenix 1.2
+
+---
+
+Binary Data
+===========
+
+* Bad GC in Erlang
+* <= 64 bytes in process heap
+* > 64 bytes stored in ProcBin - shared memory and Ref counted
+* GC only when memory preesure ~90% of system memory
+
+???
+
+open observer
+UUID is binary
+36 bytes under limit
+
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
