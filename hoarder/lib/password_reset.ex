@@ -5,9 +5,7 @@ defmodule Hoarder.PasswordReset do
   @spec start(String.t()) :: String.t()
   def start(email) do
     if user = Repo.get_by(User, email: email) do
-      user
-      |> User.reset_request_changeset
-      |> Repo.update!
+      Ecto.UUID.generate |> PasswordResetHoard.add(user)
     end
 
     :ok
@@ -22,9 +20,9 @@ defmodule Hoarder.PasswordReset do
   end
 
   defp update_password(token, new_password) do
-    case Repo.get_by(User, reset_token: token) do
-      nil -> :error
-      user ->
+    case PasswordResetHoard.get_user(token) do
+      :error -> :error
+      {:ok, user} ->
         user
         |> User.enroll_changeset(%{plain_password: new_password})
         |> Repo.update

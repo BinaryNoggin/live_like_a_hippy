@@ -11,6 +11,7 @@ defmodule Hoarder.PasswordResetTest do
 
   describe "starting with an email that is in the system" do
     setup do
+      Agent.cast(PasswordResetHoard, fn(_) -> %{} end) #clear the cache
       email = "real@example.com"
 
       user = Repo.insert!(User.enroll_changeset(%User{}, %{email: email, plain_password: "password"}))
@@ -25,8 +26,11 @@ defmodule Hoarder.PasswordResetTest do
 
     test "the user is assigned a reset tokoen", %{user: %{id: id}} do
       user = Repo.get(User, id)
+      hoard_state = :sys.get_state(PasswordResetHoard)
 
-      assert user.reset_token
+      [token | []] = Map.keys(hoard_state)
+
+      assert Map.get(hoard_state, token) == user
     end
   end
 
@@ -41,44 +45,44 @@ defmodule Hoarder.PasswordResetTest do
       email = "real@example.com"
 
       user = Repo.insert!(User.enroll_changeset(%User{}, %{email: email, plain_password: "password"}))
-      |> User.reset_request_changeset
-      |> Repo.update!
+
+      PasswordResetHoard.add("valid_token", user)
 
       %{user: user}
     end
 
-    test "changes the password and valid password", %{user: %{password: original_password, reset_token: reset_token, id: id}} do
-      PasswordReset.complete(reset_token, "new password")
+    test "changes the password and valid password", %{user: %{password: original_password, id: id}} do
+      PasswordReset.complete("valid_token", "new password")
 
       user = Repo.get(User, id)
 
       refute original_password == user.password
     end
 
-    test "does not change the password with an invalid password", %{user: %{password: original_password, reset_token: reset_token, id: id}} do
-      PasswordReset.complete(reset_token, "invalid")
+    test "does not change the password with an invalid password", %{user: %{password: original_password, id: id}} do
+      PasswordReset.complete("valid_token", "invalid")
 
       user = Repo.get(User, id)
 
       assert original_password == user.password
     end
 
-    test "returns invalid changeset", %{user: %{reset_token: reset_token}} do
-       {:error, changeset} = PasswordReset.complete(reset_token, "invalid")
+    test "returns invalid changeset" do
+       {:error, changeset} = PasswordReset.complete("valid_token", "invalid")
 
        refute changeset.valid?
     end
 
-    test "clears out the token", %{user: %{reset_token: reset_token, id: id}} do
-      PasswordReset.complete(reset_token, "new password")
+    test "clears out the token", %{user: %{id: id}} do
+      PasswordReset.complete("valid_token", "new password")
 
       user = Repo.get(User, id)
 
       refute user.reset_token
     end
 
-    test "responds with ok", %{user: %{reset_token: reset_token}} do
-      assert :ok == PasswordReset.complete(reset_token, "new password")
+    test "responds with ok" do
+      assert :ok == PasswordReset.complete("valid_token", "new password")
     end
   end
 

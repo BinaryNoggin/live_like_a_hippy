@@ -32,14 +32,4 @@ defmodule Hoarder.User do
       _ -> changeset
     end
   end
-
-  def reset_request_changeset(model) do
-    model
-    |> cast(%{}, ~w(reset_token))
-    |> put_reset_token
-  end
-
-  def put_reset_token(changeset) do
-    put_change(changeset, :reset_token, Ecto.UUID.generate)
-  end
 end

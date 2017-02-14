@@ -9,7 +9,8 @@ defmodule Hoarder.Application do
     import Supervisor.Spec, warn: false
 
     children = [
-      supervisor(Hoarder.Repo, [])
+      supervisor(Hoarder.Repo, []),
+      worker(PasswordResetHoard, [])
     ]
 
     opts = [strategy: :one_for_one, name: Hoarder.Supervisor]
