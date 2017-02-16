@@ -1,27 +1,35 @@
 defmodule Hoarder.PasswordResetTest do
-  use Hoarder.TestCase, async: true
+  use Hoarder.TestCase, async: false
   alias Hoarder.PasswordReset
   alias Hoarder.User
 
+  setup do
+    pid = GenServer.whereis(PasswordResetHoard)
+    Ecto.Adapters.SQL.Sandbox.allow(Hoarder.Repo, self(), pid)
+    :ok
+  end
+
   describe "starting with an email that doesn't exist" do
     test "has default secure response" do
-      assert standard_response(PasswordReset.start("fake@example.com"))
+      assert :ok = PasswordReset.start("fake@example.com")
+      sync_hoard()
     end
   end
 
   describe "starting with an email that is in the system" do
     setup do
-      Agent.cast(PasswordResetHoard, fn(_) -> %{} end) #clear the cache
+      clear_reset_cache()
       email = "real@example.com"
 
       user = Repo.insert!(User.enroll_changeset(%User{}, %{email: email, plain_password: "password"}))
-      response = PasswordReset.start(email)
+      response = PasswordReset.start(user.email)
 
       %{user: user, response: response}
     end
 
     test "has default secure response", %{response: response} do
-      assert standard_response(response)
+      assert :ok = response
+      sync_hoard()
     end
 
     test "the user is assigned a reset tokoen", %{user: %{id: id}} do
@@ -31,6 +39,7 @@ defmodule Hoarder.PasswordResetTest do
       [token | []] = Map.keys(hoard_state)
 
       assert Map.get(hoard_state, token) == user
+      sync_hoard()
     end
   end
 
@@ -46,7 +55,7 @@ defmodule Hoarder.PasswordResetTest do
 
       user = Repo.insert!(User.enroll_changeset(%User{}, %{email: email, plain_password: "password"}))
 
-      PasswordResetHoard.add("valid_token", user)
+      set_cache_state %{"valid_token" => user}
 
       %{user: user}
     end
@@ -86,7 +95,15 @@ defmodule Hoarder.PasswordResetTest do
     end
   end
 
-  def standard_response(response) do
-    response == :ok
+  def clear_reset_cache do
+    set_cache_state %{}
+  end
+
+  def set_cache_state(state) do
+    :sys.replace_state(PasswordResetHoard, fn(_) -> state end)
+  end
+
+  def sync_hoard do
+    :sys.get_state(PasswordResetHoard)
   end
 end

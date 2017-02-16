@@ -4,10 +4,7 @@ defmodule Hoarder.PasswordReset do
 
   @spec start(String.t()) :: String.t()
   def start(email) do
-    if user = Repo.get_by(User, email: email) do
-      Ecto.UUID.generate |> PasswordResetHoard.add(user)
-    end
-
+    PasswordResetHoard.add(email)
     :ok
   end
 
