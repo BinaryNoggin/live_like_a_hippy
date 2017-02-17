@@ -3,20 +3,23 @@ defmodule PasswordResetHoard do
   alias Hoarder.Repo
   alias Hoarder.User
 
-  def start_link do
-    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
+  @name __MODULE__
+
+  def start_link(opts \\ []) do
+    opts = Keyword.put_new(opts, :name, @name)
+    GenServer.start_link(__MODULE__, %{}, opts)
   end
 
-  def add(email) do
-    GenServer.cast(__MODULE__, {:add, email})
+  def add(email, name \\ @name) do
+    GenServer.cast(name, {:add, email})
   end
 
-  def remove(token) do
-    GenServer.cast(__MODULE__, {:remove, token})
+  def remove(token, name \\ @name) do
+    GenServer.cast(name, {:remove, token})
   end
 
-  def get_user(token) do
-    GenServer.call(__MODULE__, {:get_user, token})
+  def get_user(token, name \\ @name) do
+    GenServer.call(name, {:get_user, token})
   end
 
   def handle_cast({:add, email}, state) do
