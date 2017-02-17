@@ -22,6 +22,12 @@ defmodule PasswordResetHoardTest do
     assert found_user == user
   end
 
+  test "adding a user that doesn't exist" do
+    PasswordResetHoard.add("not_here@example.com", __MODULE__)
+
+    assert %{} == :sys.get_state(__MODULE__)
+  end
+
   test "removing a reset" do
     :sys.replace_state(__MODULE__, fn(_) -> %{a: 1} end)
 
