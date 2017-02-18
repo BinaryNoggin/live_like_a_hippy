@@ -1,14 +1,17 @@
 defmodule Hoarder.PasswordReset do
   alias Hoarder.Repo
   alias Hoarder.User
+  @type email :: String.t()
+  @type token :: String.t()
+  @type password :: String.t()
 
-  @spec start(String.t()) :: String.t()
+  @spec start(email) :: :ok
   def start(email) do
     PasswordResetHoard.add(email)
     :ok
   end
 
-  @spec complete(String.t(), String.t()) :: term
+  @spec complete(token, password) :: :ok | :error | {:error, map}
   def complete(token, new_password) do
     case update_password(token, new_password) do
       {:ok, _} -> :ok
