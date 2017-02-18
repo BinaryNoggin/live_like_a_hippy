@@ -3,9 +3,10 @@ defmodule PasswordResetHoardTest do
   alias PasswordResetHoard
   alias Hoarder.User
   alias Hoarder.Repo
+  @process_id __MODULE__
 
   setup do
-    {:ok, pid} = PasswordResetHoard.start_link(name: __MODULE__)
+    {:ok, pid} = PasswordResetHoard.start_link(name: @process_id)
     Ecto.Adapters.SQL.Sandbox.allow(Hoarder.Repo, self(), pid)
     :ok
   end
@@ -14,35 +15,35 @@ defmodule PasswordResetHoardTest do
     email = "real@example.com"
     Repo.insert!(User.enroll_changeset(%User{}, %{email: email, plain_password: "password"}))
 
-    PasswordResetHoard.add(email, __MODULE__)
+    PasswordResetHoard.add(email, @process_id)
     user = Repo.get_by(User, email: email)
 
-    [found_user | []] = Map.values(:sys.get_state(__MODULE__))
+    [found_user | []] = Map.values(:sys.get_state(@process_id))
 
     assert found_user == user
   end
 
   test "adding a user that doesn't exist" do
-    PasswordResetHoard.add("not_here@example.com", __MODULE__)
+    PasswordResetHoard.add("not_here@example.com", @process_id)
 
-    assert %{} == :sys.get_state(__MODULE__)
+    assert %{} == :sys.get_state(@process_id)
   end
 
   test "removing a reset" do
-    :sys.replace_state(__MODULE__, fn(_) -> %{a: 1} end)
+    :sys.replace_state(@process_id, fn(_) -> %{a: 1} end)
 
-    PasswordResetHoard.remove(:a, __MODULE__)
+    PasswordResetHoard.remove(:a, @process_id)
 
-    assert %{} == :sys.get_state(__MODULE__)
+    assert %{} == :sys.get_state(@process_id)
   end
 
   test "get a user that by the reset token" do
-    :sys.replace_state(__MODULE__, fn(_) -> %{a: :user} end)
+    :sys.replace_state(@process_id, fn(_) -> %{a: :user} end)
 
-    assert {:ok, :user} == PasswordResetHoard.get_user(:a, __MODULE__)
+    assert {:ok, :user} == PasswordResetHoard.get_user(:a, @process_id)
   end
 
-  test "trying to get a user that is not in the reset system" do
-    assert :error == PasswordResetHoard.get_user(:invalid, __MODULE__)
+  test "trying to get a user that is not in the system" do
+    assert :error == PasswordResetHoard.get_user(:invalid, @process_id)
   end
 end

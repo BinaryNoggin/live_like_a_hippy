@@ -10,7 +10,7 @@ defmodule Hoarder.Application do
 
     children = [
       supervisor(Hoarder.Repo, []),
-      worker(PasswordResetHoard, [])
+      supervisor(PasswordResetHoard.Supervisor, []),
     ]
 
     opts = [strategy: :one_for_one, name: Hoarder.Supervisor]
