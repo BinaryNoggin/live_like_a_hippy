@@ -21,6 +21,14 @@
         width: 95%;
         height: 95%;
       }
+      .small img {
+        width: 60%;
+        height: 60%;
+      }
+      .smaller img {
+        width: 50%;
+        height: 50%;
+      }
     </style>
   </head>
   <body>
@@ -49,6 +57,31 @@ class: center, middle
 
 I like to spawn processes
 I'm almost like Johnny
+
+---
+
+.sized[![image](images/brut.jpg)]
+
+???
+
+* Where do I store data?
+* Give background of idea
+* Why?
+* Throw it in the DB
+
+---
+
+Using the DB
+============
+
+.small[![image](images/passive.jpg)]
+
+???
+
+* Show DB implementation
+* Didn't want this
+* Better than another dependency for me
+* Slower than some dependencies
 
 ---
 
@@ -89,16 +122,12 @@ I'm almost like Johnny
 
 # Why?
 
-* Security - Attack footprint
+# Because DDoS
 
-???
-
-* Shodan 6,550 insecure Redis instances
 ---
 
 # Why?
 
-* Security - Attack footprint
 * Dependencies
 
 ???
@@ -109,7 +138,6 @@ I'm almost like Johnny
 
 # Why?
 
-* Security - Attack footprint
 * Dependencies
 * Deployment
 
@@ -119,16 +147,42 @@ I'm almost like Johnny
 
 ---
 
+# Why?
+
+* Dependencies
+* Deployment
+* Optimization
+
+???
+
+* what is faster than data in an in memory database?
+
+---
+
+# Why?
+
+* Dependencies
+* Deployment
+* Optimization
+* Security
+
+???
+
+* Attack footprint
+* Shodan 6,550 insecure Redis instances
+
+---
+
 .sized[![image](images/uncle_bob.png)]
 
 ???
 
-* Uncle Bob - Put off peristance as long as possible
+* Uncle Bob - Put off persistence as long as possible
 * Architecture - The Lost Years
 
 ---
 
-# Live Like a Horder
+# Live Like a Horde(r)
 
 .sized[![image](images/horde.jpg)]
 
@@ -188,8 +242,7 @@ Temporary
 
 ---
 
-Using the DB
-============
+.small[![image](images/agent.jpg)]
 
 ???
 
@@ -199,12 +252,9 @@ Using the DB
 
 ---
 
-Agent
-=====
+#### What about crashes?
 
----
-
-What about crashes?
+.smaller[![image](images/hiro.png)]
 
 ???
 
@@ -217,8 +267,7 @@ It will fail so let it fail
 
 ---
 
-GenServer
-=========
+# GenServer
 
 ???
 
@@ -255,7 +304,7 @@ Binary Data
 
 * Bad GC in Erlang
 * <= 64 bytes in process heap
-* > 64 bytes stored in ProcBin - shared memory and Ref counted
+* greater than 64 bytes stored in ProcBin - shared memory and Ref counted
 * GC only when memory preesure ~90% of system memory
 
 ???
