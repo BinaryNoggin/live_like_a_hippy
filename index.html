@@ -14,12 +14,20 @@
         font-weight: normal;
       }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .white {
+        color: white;
+      }
+      .sized img {
+        width: 95%;
+        height: 95%;
+      }
     </style>
   </head>
   <body>
     <textarea id="source">
 
-class: center, middle
+class: center, top
+background-image: url(images/hippies.jpg)
 
 # Live Like a Hippy
 
@@ -27,37 +35,116 @@ class: center, middle
 
 # Who am I?
 
-* Amos King - @adkron
+* Amos King
 * @adkron
 * Binary Noggin
 * This Agile Life
 
 ---
+class: center, middle
 
-Kids
+.sized[![image](images/family.jpg)]
 
 ???
 
 I like to spawn processes
-I'm almost like Johny
+I'm almost like Johnny
 
 ---
 
 # What does it mean to live like a hippy?
+
+.sized[![image](images/hippies2.jpg)]
+
+???
+
+* Festivals are like conferences
+* Free of constraints
+* Enjoying life
+
+---
+
+# Processes
+
+.sized[![image](images/processes.jpg)]
+
+???
+
+* Saša Jurić
+* Processes
+
+---
+
+.sized[![image](images/processes-with-data.jpg)]
+
+???
+
+* Agentitis
+
+---
+
+# Why?
 
 ---
 
 # Why?
 
 * Security - Attack footprint
-* Uncle Bob - Put off peristance as long as possible
-* Deployment
+
+???
+
+* Shodan 6,550 insecure Redis instances
+---
+
+# Why?
+
+* Security - Attack footprint
 * Dependencies
+
+???
+
+* One less library to depend on
 
 ---
 
-# Live Like a Hoarder
-=====================
+# Why?
+
+* Security - Attack footprint
+* Dependencies
+* Deployment
+
+???
+
+* One less thing to worry about deploy
+
+---
+
+.sized[![image](images/uncle_bob.png)]
+
+???
+
+* Uncle Bob - Put off peristance as long as possible
+* Architecture - The Lost Years
+
+---
+
+# Live Like a Horder
+
+.sized[![image](images/horde.jpg)]
+
+---
+
+# Err, Hoarder
+
+.sized[![image](images/unorganized-hoarding.jpg)]
+
+---
+
+# Classify Our Data
+
+.sized[![image](images/organized-hoarding.jpg)]
+
+???
 
 1. Classify your junk
 2. Put it in the right place
@@ -71,6 +158,19 @@ Premanent
 * Static
 * Changing
 
+???
+
+## Static
+
+* Config files
+* Store in code
+
+## Changing
+
+* Medical History
+* Blog comments
+* User Data - Email, or Name
+
 ---
 
 Temporary
@@ -80,10 +180,22 @@ Temporary
 * Transient
 * Ephemeral
 
+???
+
+* Temporal - Relating to Time
+* Transient - lasting only a short time
+* Ephemeral - lasting for a very short time
+
 ---
 
 Using the DB
 ============
+
+???
+
+* Didn't want this
+* Better than another dependency for me
+* Slower than some dependencies
 
 ---
 
@@ -92,15 +204,11 @@ Agent
 
 ---
 
-Storing the entire Map
-
----
-
 What about crashes?
 
 ???
 
-Move business logic away from
+* Move business logic away from
 
 Keep the data you are storing focued
 "Keep state together that changes together"
@@ -152,9 +260,9 @@ Binary Data
 
 ???
 
-open observer
-UUID is binary
-36 bytes under limit
+* open :observer
+* UUID is binary
+* 36 bytes under limit
 
 
     </textarea>
