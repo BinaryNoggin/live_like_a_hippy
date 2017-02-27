@@ -8,24 +8,82 @@
       @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
       @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
-      body { font-family: 'Droid Serif'; }
+      body {
+        font-family: 'Droid Serif';
+      }
+
+      li {
+        font-size: 2em;
+      }
+
+      .my-footer {
+        background-image: url('images/small-circle.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: left bottom;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        height: 20px;
+        width: 100%;
+      }
+
       h1, h2, h3 {
         font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
+        background-color: rgba(35, 27, 89, 0.3);
+        position: relative;
+        z-index: 100;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        color: rgba(35, 27, 89, 0.9);
       }
+
+      .background img {
+        min-height: 100%;
+        min-width: auto;
+
+        width: 100%;
+        height: auto;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 0;
+      }
+
+      .background.tall img {
+        max-height: 100%;
+      }
+
+      .backgroud.wide img {
+        min-width: 100%;
+        max-width: 100%;
+        min-height: auto;
+
+        height: 100%;
+        width: auto;
+      }
+
+      .background.wide.down img {
+        top: 13%;
+        min-height: 90%;
+        min-width: auto;
+
+        width: 90%;
+        height: auto;
+      }
+
+      .opaque img {
+        opacity: 0.3;
+      }
+
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
-      .white {
-        color: white;
-      }
       .sized img {
         width: 95%;
         height: 95%;
       }
-      .small img {
-        width: 60%;
-        height: 60%;
-      }
-      .smaller img {
+      .width img {
         width: 50%;
         height: 50%;
       }
@@ -34,10 +92,16 @@
   <body>
     <textarea id="source">
 
+layout: true
+<div class="my-footer"></div>
+---
+
 class: center, top
-background-image: url(images/hippies.jpg)
 
 # Live Like a Hippy
+## Amos King
+### Elixir Daze 2017 - St. Augustine, Florida
+.background.opaque[![image](images/hippies.jpg)]
 
 ---
 
@@ -51,7 +115,7 @@ background-image: url(images/hippies.jpg)
 ---
 class: center, middle
 
-.sized[![image](images/family.jpg)]
+.background.wide[![image](images/family.jpg)]
 
 ???
 
@@ -60,83 +124,92 @@ I'm almost like Johnny
 
 ---
 
-.sized[![image](images/brut.jpg)]
+.background[![image](images/brut.jpg)]
 
 ???
 
 * Where do I store data?
 * Give background of idea
-* Why?
-* Throw it in the DB
 
 ---
 
 Using the DB
 ============
 
-.small[![image](images/passive.jpg)]
+![image](images/db.png)
 
 ???
 
-* Show DB implementation
+* Password Reset System
 * Didn't want this
 * Better than another dependency for me
 * Slower than some dependencies
+* Goes against living like a hippy
 
 ---
 
 # What does it mean to live like a hippy?
 
-.sized[![image](images/hippies2.jpg)]
+.background.opaque[![image](images/hippies2.jpg)]
 
 ???
 
 * Festivals are like conferences
 * Free of constraints
 * Enjoying life
+* Enjoy making things themselves
+  * Clothes
+  * Jewelry
 
 ---
 
-# Processes
-
-.sized[![image](images/processes.jpg)]
+.background[![image](images/processes.jpg)]
 
 ???
 
 * Saša Jurić
-* Processes
 
 ---
 
-.sized[![image](images/processes-with-data.jpg)]
+.background.wide[![image](images/processes-with-data.jpg)]
 
 ???
 
-* Agentitis
+* Store Data in your process
 
 ---
 
 # Why?
 
----
+.background[![image](images/y.jpg)]
 
-# Why?
+???
+
+* Why not grab a key value store
+
+---
 
 # Because DDoS
 
+???
+
+* Doesn't mean Distributed Denial of Service
+
 ---
 
-# Why?
+# Because DDoS
 
 * Dependencies
 
 ???
 
-* One less library to depend on
+* One less library
+  * less to learn
+  * less to maintain
 
 ---
 
-# Why?
+# Because DDoS
 
 * Dependencies
 * Deployment
@@ -144,10 +217,11 @@ Using the DB
 ???
 
 * One less thing to worry about deploy
+* nedd less experts
 
 ---
 
-# Why?
+# Because DDoS
 
 * Dependencies
 * Deployment
@@ -159,7 +233,7 @@ Using the DB
 
 ---
 
-# Why?
+# Because DDoS
 
 * Dependencies
 * Deployment
@@ -170,27 +244,31 @@ Using the DB
 
 * Attack footprint
 * Shodan 6,550 insecure Redis instances
+* Unikernel
+  * machine image
+  * like embedded
+  * You app is the OS
 
 ---
 
-.sized[![image](images/uncle_bob.png)]
+.background[![image](images/uncle_bob.png)]
 
 ???
 
 * Uncle Bob - Put off persistence as long as possible
-* Architecture - The Lost Years
+* Architecture - The Lost Years - 2011
 
 ---
 
 # Live Like a Horde(r)
 
-.sized[![image](images/horde.jpg)]
+.background.opaque[![image](images/horde.jpg)]
 
 ---
 
 # Err, Hoarder
 
-.sized[![image](images/unorganized-hoarding.jpg)]
+.background.opaque[![image](images/unorganized-hoarding.jpg)]
 
 ---
 
@@ -206,7 +284,7 @@ Using the DB
 
 ---
 
-Premanent
+Permanent
 =========
 
 * Static
@@ -242,41 +320,58 @@ Temporary
 
 ---
 
-.small[![image](images/agent.jpg)]
+.background[![image](images/agent.jpg)]
 
 ???
 
-* Didn't want this
-* Better than another dependency for me
-* Slower than some dependencies
+* Great simple data store
+* Stores our data structures
+  * No conversion to wire protocol
+  * Quick
 
 ---
 
-#### What about crashes?
+.background.tall[![image](images/agent-process.png)]
 
-.smaller[![image](images/hiro.png)]
+---
+
+### What about crashes?
+
+.center[![image](images/hiro.png)]
 
 ???
 
 
 Keep the data you are storing focused
-"Keep state together that changes together"
+"Let It Fail"
 
-It will fail so let it fail
+"Keep state together that changes together"
 
 ---
 
 # GenServer
 
+.background.tall[![image](images/genserver-process.png)]
+
 ???
 
-Call vs Cast to push data
-
-Callbacks
-
-Custom termination logic
+* Call
+* Cast to push data - set it and forget it
+* Custom termination logic
 
 ---
+
+# Failure Tolerance
+
+.background.tall[![image](images/failure-tolerance.png)]
+
+---
+
+???
+
+* Most likely failure at the bottom
+* Supervisors - More chances before catastrophic failure
+* Now the only failure is the system coming down
 
 Gotchas
 =======
@@ -304,15 +399,76 @@ Binary Data
 ===========
 
 * Bad GC in Erlang
-* <= 64 bytes in process heap
-* greater than 64 bytes stored in ProcBin - shared memory and Ref counted
-* GC only when memory preesure ~90% of system memory
+* 64 bytes is a magic number
+* GC only ~90% of system memory
 
 ???
 
-* open :observer
 * UUID is binary
 * 36 bytes under limit
+* less than or equal 64 bytes in process heap
+* greater than 64 bytes stored in ProcBin - shared memory and Ref counted
+* Store Domain Representation
+* Well documented search online
+
+---
+
+# Next Steps
+
+* ETS
+* DETS
+* Mnesia
+* Write an application with no DB
+
+???
+
+* used maps
+* why ets and dets
+  * code failures
+  * same api
+  * write to disk for crashing applications
+* Mnesia
+  * from elixir school
+  * Do I need to roll back transactions?
+  * Do I need an easy to use syntax for reading and writing data?
+  * Should I store data across multiple nodes, rather than one?
+  * Do I need a choice where to store information (RAM or disk)?
+
+---
+
+# Hoarder Takeaways
+
+* Agent good for temporal data
+* GenServer is your friend
+* Push logic to the bottom
+* Keep data in its own process
+* Always have a backup
+
+???
+
+* Agentits
+
+---
+
+* Slides - https://github.com/BinaryNoggin/live_like_a_hippy
+* Architecture the Lost Years - https://www.youtube.com/watch?v=WpkDN78P884
+* Zen of Erlang - http://ferd.ca/the-zen-of-erlang.html
+* McCord - Phoenix 1.2 and Beyond - https://www.youtube.com/watch?v=n338leKvqnA
+
+---
+
+# Thank You
+
+* Elixir Daze
+* Oliver Ferrigni
+* Adam Ritzel
+* Craig Buchek
+* STL Elixir
+
+---
+
+.sized[![image](images/passive.jpg)]
+
 
 
     </textarea>
