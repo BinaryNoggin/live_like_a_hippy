@@ -13,7 +13,7 @@
       }
 
       li {
-        font-size: 2em;
+        font-size: 1.2em;
       }
 
       .my-footer {
@@ -130,6 +130,7 @@ I'm almost like Johnny
 
 * Where do I store data?
 * Give background of idea
+* Sensible - Submit CFP
 
 ---
 
@@ -217,7 +218,7 @@ Using the DB
 ???
 
 * One less thing to worry about deploy
-* nedd less experts
+* need less experts
 
 ---
 
@@ -335,6 +336,114 @@ Temporary
 
 ---
 
+#Agent Code
+
+```elixir
+defmodule PasswordReset.Hoard do
+
+  def start_link do
+*   Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  def add(token, user) do
+    Agent.cast(__MODULE__, &Map.put(&1, token, user))
+  end
+
+  def get_user(token) do
+    Agent.get(__MODULE__, &Map.fetch(&1, token))
+  end
+
+  def remove(token) do
+    Agent.cast(__MODULE__, &Map.delete(&1, token))
+  end
+
+end
+```
+
+---
+
+#Agent Code
+
+```elixir
+defmodule PasswordReset.Hoard do
+
+  def start_link do
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  def add(token, user) do
+*   Agent.cast(__MODULE__, &Map.put(&1, token, user))
+  end
+
+  def get_user(token) do
+    Agent.get(__MODULE__, &Map.fetch(&1, token))
+  end
+
+  def remove(token) do
+    Agent.cast(__MODULE__, &Map.delete(&1, token))
+  end
+
+end
+```
+
+???
+
+* Agent.update/2
+
+---
+
+#Agent Code
+
+```elixir
+defmodule PasswordReset.Hoard do
+
+  def start_link do
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  def add(token, user) do
+    Agent.cast(__MODULE__, &Map.put(&1, token, user))
+  end
+
+  def get_user(token) do
+*  Agent.get(__MODULE__, &Map.fetch(&1, token))
+  end
+
+  def remove(token) do
+    Agent.cast(__MODULE__, &Map.delete(&1, token))
+  end
+
+end
+```
+
+---
+
+#Agent Code
+
+```elixir
+defmodule PasswordReset.Hoard do
+
+  def start_link do
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  def add(token, user) do
+    Agent.cast(__MODULE__, &Map.put(&1, token, user))
+  end
+
+  def get_user(token) do
+   Agent.get(__MODULE__, &Map.fetch(&1, token))
+  end
+
+  def remove(token) do
+*   Agent.cast(__MODULE__, &Map.delete(&1, token))
+  end
+
+end
+```
+
+---
+
 ### What about crashes?
 
 .center[![image](images/hiro.png)]
@@ -361,17 +470,126 @@ Keep the data you are storing focused
 
 ---
 
+# Failover Code
+
+~~~elixir
+defmodule PasswordResetHoard.FailoverStorage do
+
+  def start_link do
+*   Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  def dump(state) do
+    Agent.cast(__MODULE__, fn(_) -> state end)
+  end
+
+  def load do
+    Agent.get(__MODULE__, fn(state) -> state end)
+  end
+
+end
+~~~
+
+---
+
+# Failover Code
+
+~~~elixir
+defmodule PasswordResetHoard.FailoverStorage do
+
+  def start_link do
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  def dump(state) do
+*   Agent.cast(__MODULE__, fn(_) -> state end)
+  end
+
+  def load do
+    Agent.get(__MODULE__, fn(state) -> state end)
+  end
+
+end
+~~~
+
+---
+
+# Failover Code
+
+~~~elixir
+defmodule PasswordResetHoard.FailoverStorage do
+
+  def start_link do
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  def dump(state) do
+    Agent.cast(__MODULE__, fn(_) -> state end)
+  end
+
+  def load do
+*   Agent.get(__MODULE__, fn(state) -> state end)
+  end
+
+end
+~~~
+
+---
+
+# GenServer Code
+
+~~~elixir
+defmodule PasswordReset.Hoard do
+
+  def init(:ok) do
+*   {:ok,FailoverStorage.load}
+  end
+
+  #...
+
+  def terminate(_reason, state) do
+    FailoverStorage.dump(state)
+  end
+
+end
+~~~
+
+---
+
+# GenServer Code
+
+~~~elixir
+defmodule PasswordReset.Hoard do
+
+  def init(:ok) do
+    {:ok,FailoverStorage.load}
+  end
+
+  #...
+
+  def terminate(_reason, state) do
+*   FailoverStorage.dump(state)
+  end
+
+end
+~~~
+
+---
+
 # Failure Tolerance
 
 .background.tall[![image](images/failure-tolerance.png)]
-
----
 
 ???
 
 * Most likely failure at the bottom
 * Supervisors - More chances before catastrophic failure
 * Now the only failure is the system coming down
+* Supervisor
+  * Default Max restarts = 3
+  * Max Seconds = 5
+
+---
 
 Gotchas
 =======
@@ -398,7 +616,7 @@ Chris McCord ElixirConf EU 2016 - Phoenix 1.2
 Binary Data
 ===========
 
-* Bad GC in Erlang
+* GC is different
 * 64 bytes is a magic number
 * GC only ~90% of system memory
 
@@ -441,6 +659,7 @@ Binary Data
 * Agent good for temporal data
 * GenServer is your friend
 * Push logic to the bottom
+* Stask Failover Data at the Top
 * Keep data in its own process
 * Always have a backup
 
@@ -450,9 +669,14 @@ Binary Data
 
 ---
 
+# Resources
+
 * Slides - https://github.com/BinaryNoggin/live_like_a_hippy
+
 * Architecture the Lost Years - https://www.youtube.com/watch?v=WpkDN78P884
+
 * Zen of Erlang - http://ferd.ca/the-zen-of-erlang.html
+
 * McCord - Phoenix 1.2 and Beyond - https://www.youtube.com/watch?v=n338leKvqnA
 
 ---
@@ -475,7 +699,10 @@ Binary Data
     <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
     </script>
     <script>
-      var slideshow = remark.create();
+var slideshow = remark.create({
+  highlightLanguage: 'elixir',
+  highlightLines: true
+});
     </script>
   </body>
 </html>
