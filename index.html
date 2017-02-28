@@ -31,12 +31,13 @@
       h1, h2, h3 {
         font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
-        background-color: rgba(35, 27, 89, 0.3);
+        background-color: rgba(18, 18, 103, 0.75);
         position: relative;
         z-index: 100;
         margin-top: 0px;
         margin-bottom: 0px;
-        color: rgba(35, 27, 89, 0.9);
+        color: rgb(255, 255, 255);
+        padding: 0 10px;
       }
 
       .background img {
@@ -72,10 +73,6 @@
 
         width: 90%;
         height: auto;
-      }
-
-      .opaque img {
-        opacity: 0.3;
       }
 
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
@@ -406,7 +403,7 @@ defmodule PasswordReset.Hoard do
   end
 
   def get_user(token) do
-*  Agent.get(__MODULE__, &Map.fetch(&1, token))
+*   Agent.get(__MODULE__, &Map.fetch(&1, token))
   end
 
   def remove(token) do
@@ -432,7 +429,7 @@ defmodule PasswordReset.Hoard do
   end
 
   def get_user(token) do
-   Agent.get(__MODULE__, &Map.fetch(&1, token))
+    Agent.get(__MODULE__, &Map.fetch(&1, token))
   end
 
   def remove(token) do
@@ -444,7 +441,7 @@ end
 
 ---
 
-### What about crashes?
+# What about crashes?
 
 .center[![image](images/hiro.png)]
 
