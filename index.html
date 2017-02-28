@@ -13,23 +13,27 @@
       }
 
       li {
-        font-size: 1.5em;
+        font-size: 2em;
       }
 
-      li {
+      li li {
         font-size: 1em;
       }
 
-      .my-footer {
-        background-image: url('images/small-circle.png');
-        background-repeat: no-repeat;
+      footer {
         background-attachment: fixed;
         background-position: left bottom;
         position: absolute;
-        bottom: 0px;
-        left: 0px;
-        height: 20px;
+        bottom: 30px;
+        left: 5px;
+        height: 60px;
         width: 100%;
+        text-align: left;
+      }
+
+      footer img {
+        height: 100%;
+        width: auto;
       }
 
       h1, h2, h3 {
@@ -45,71 +49,117 @@
         color: rgba(105, 81, 255, 1);
       }
 
-      .background img {
-        min-height: 100%;
-        min-width: auto;
-
-        width: 100%;
-        height: auto;
-
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 0;
-      }
-
-      .background.tall img {
-        max-height: 100%;
-      }
-
-      .backgroud.wide img {
-        min-width: 100%;
-        max-width: 100%;
-        min-height: auto;
-
-        height: 100%;
-        width: auto;
-      }
-
-      .background.wide.down img {
-        top: 13%;
-        min-height: 90%;
-        min-width: auto;
-
-        width: 90%;
-        height: auto;
-      }
-
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
       .remark-notes-preview-area { display: none; }
       .remark-notes-current-area {
-        font-size: 2em;
+        font-size: 1.5em;
       }
-      .sized img {
-        width: 95%;
-        height: 95%;
+
+      .title {
+        background-image: url('images/hippies.jpg');
+        background-size: auto 100%;
       }
-      .width img {
-        width: 50%;
-        height: 50%;
+
+      .family {
+        background-image: url('images/family.jpg');
+        background-size: 100% auto;
       }
+
+      .meaning {
+        background-image: url('images/hippies2.jpg');
+        background-size: 100% auto;
+      }
+
+      .using-db {
+        background-image: url('images/db.png');
+        background-size: 60% auto;
+      }
+
+      .processes {
+        background-image: url('images/processes.jpg');
+        background-size: 100% auto;
+      }
+
+      .data-processes {
+        background-image: url('images/data-process2.png');
+        background-size: auto 100%;
+      }
+
+      .why {
+        background-image: url('images/y.jpg');
+        background-size: 100% auto;
+      }
+
+      .uncle-bob {
+        background-image: url('images/uncle_bob.png');
+        background-size: 100% auto;
+      }
+
+      .hoarder {
+        background-image: url('images/unorganized-hoarding.jpg');
+        background-size:  auto 100%;
+      }
+
+      .organized {
+        background-image: url('images/organized-hoarding.jpg');
+        background-size:  100% auto;
+      }
+
+      .agent {
+        background-image: url('images/agent.jpg');
+        background-size: auto 100%;
+      }
+
+      .agent-diagram {
+        background-image: url('images/agent-process.png');
+        background-size: auto 80%;
+      }
+
+      .crashes {
+        background-image: url('images/hiro.png');
+        background-size: auto 70%;
+      }
+
+      .genserver {
+        background-image: url('images/genserver-process.png');
+        background-size: auto 100%;
+      }
+
+      .fault-tolerant {
+        background-image: url('images/failure-tolerance.png');
+        background-size: auto 85%;
+      }
+
+      .lets-talk {
+        background-image: url('images/passive.jpg');
+        background-size: auto 70%;
+      }
+
+      .me {
+        background-image: url('images/tintin.jpeg');
+        background-size: auto 60%;
+        background-position: center bottom;
+      }
+
     </style>
   </head>
   <body>
     <textarea id="source">
 
 layout: true
-<div class="my-footer"></div>
+<footer>  <img src="images/small-circle.png">
+</footer>
 ---
 
-class: center, top
+class: center, top, title
 
 # Live Like a Hippy
 ## Amos King
 ### Elixir Daze 2017 - St. Augustine, Florida
-.background[![image](images/hippies.jpg)]
 
 ---
+
+class: me
 
 # Who am I?
 
@@ -119,31 +169,38 @@ class: center, top
 * This Agile Life
 
 ---
-class: center, middle
+class: center, top, family
 
-.background.wide[![image](images/family.jpg)]
+# Spawning Processes
 
 ???
 
-I like to spawn processes
 I'm almost like Johnny
+I like to spawn processes
 
 ---
 
-.background[![image](images/brut.jpg)]
+class: meaning
+
+# What does it mean to live like a hippy?
 
 ???
 
-* Where do I store data?
-* Give background of idea
-* Sensible - Submit CFP
+* Festivals are like conferences
+* Free of constraints
+* Enjoying life
+* Enjoy making things themselves
+  * Clothes
+  * Jewelry
+  * Macramé
+  * Password Reset Solutions
 
 ---
+
+class: using-db
 
 Using the DB
 ============
-
-![image](images/db.png)
 
 ???
 
@@ -155,30 +212,18 @@ Using the DB
 
 ---
 
-# What does it mean to live like a hippy?
-
-.background[![image](images/hippies2.jpg)]
-
-???
-
-* Festivals are like conferences
-* Free of constraints
-* Enjoying life
-* Enjoy making things themselves
-  * Clothes
-  * Jewelry
-
----
-
-.background[![image](images/processes.jpg)]
+class: processes
 
 ???
 
 * Saša Jurić
+* Where do I store data?
+* Give background of idea
+* Sensible - Submit CFP
 
 ---
 
-.background.wide[![image](images/processes-with-data.jpg)]
+class: data-processes
 
 ???
 
@@ -186,15 +231,17 @@ Using the DB
 
 ---
 
-# Why?
+class: why
 
-.background[![image](images/y.jpg)]
+# Why?
 
 ???
 
 * Why not grab a key value store
 
 ---
+
+class: ddos
 
 # Because DDoS
 
@@ -258,7 +305,7 @@ Using the DB
 
 ---
 
-.background[![image](images/uncle_bob.png)]
+class: uncle-bob
 
 ???
 
@@ -267,21 +314,15 @@ Using the DB
 
 ---
 
-# Live Like a Horde(r)
-
-.background[![image](images/horde.jpg)]
-
----
+class: hoarder
 
 # Err, Hoarder
 
-.background[![image](images/unorganized-hoarding.jpg)]
-
 ---
 
-# Classify Our Data
+class: organized
 
-.sized[![image](images/organized-hoarding.jpg)]
+# Classify Our Data
 
 ???
 
@@ -327,9 +368,9 @@ Temporary
 
 ---
 
-# Agent
+class: agent
 
-.background[![image](images/agent.jpg)]
+# Agent
 
 ???
 
@@ -340,7 +381,9 @@ Temporary
 
 ---
 
-.background.tall[![image](images/agent-process.png)]
+class: agent-diagram
+
+# What It Looks Like
 
 ---
 
@@ -414,7 +457,7 @@ defmodule PasswordReset.Hoard do
   end
 
   def get_user(token) do
-*  Agent.get(__MODULE__, &Map.fetch(&1, token))
+*   Agent.get(__MODULE__, &Map.fetch(&1, token))
   end
 
   def remove(token) do
@@ -440,7 +483,7 @@ defmodule PasswordReset.Hoard do
   end
 
   def get_user(token) do
-   Agent.get(__MODULE__, &Map.fetch(&1, token))
+    Agent.get(__MODULE__, &Map.fetch(&1, token))
   end
 
   def remove(token) do
@@ -452,9 +495,9 @@ end
 
 ---
 
-# What about crashes?
+class: crashes
 
-.center[![image](images/hiro.png)]
+# What about crashes?
 
 ???
 
@@ -466,9 +509,9 @@ Keep the data you are storing focused
 
 ---
 
-# GenServer
+class: genserver
 
-.background.tall[![image](images/genserver-process.png)]
+# GenServer
 
 ???
 
@@ -584,9 +627,9 @@ end
 
 ---
 
-# Failure Tolerance
+class: fault-tolerant
 
-.background.tall[![image](images/failure-tolerance.png)]
+# Failure Tolerance
 
 ???
 
@@ -677,15 +720,21 @@ Binary Data
 
 ---
 
+class: resources
+
 # Resources
 
-* Slides - https://github.com/BinaryNoggin/live_like_a_hippy
+Slides
+https://github.com/BinaryNoggin/live_like_a_hippy
 
-* Architecture the Lost Years - https://www.youtube.com/watch?v=WpkDN78P884
+Architecture the Lost Years
+https://www.youtube.com/watch?v=WpkDN78P884
 
-* Zen of Erlang - http://ferd.ca/the-zen-of-erlang.html
+Zen of Erlang
+http://ferd.ca/the-zen-of-erlang.html
 
-* McCord - Phoenix 1.2 and Beyond - https://www.youtube.com/watch?v=n338leKvqnA
+McCord - Phoenix 1.2 and Beyond
+https://www.youtube.com/watch?v=n338leKvqnA
 
 ---
 
@@ -699,9 +748,9 @@ Binary Data
 
 ---
 
-# Come Talk to Me
+class: lets-talk
 
-.sized[![image](images/passive.jpg)]
+# Come Talk to Me
 
 
 
