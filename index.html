@@ -403,7 +403,7 @@ defmodule PasswordReset.Hoard do
   end
 
   def get_user(token) do
-*  Agent.get(__MODULE__, &Map.fetch(&1, token))
+*   Agent.get(__MODULE__, &Map.fetch(&1, token))
   end
 
   def remove(token) do
@@ -429,7 +429,7 @@ defmodule PasswordReset.Hoard do
   end
 
   def get_user(token) do
-   Agent.get(__MODULE__, &Map.fetch(&1, token))
+    Agent.get(__MODULE__, &Map.fetch(&1, token))
   end
 
   def remove(token) do
