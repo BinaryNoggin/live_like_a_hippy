@@ -61,7 +61,7 @@
       }
 
       .family {
-        background-image: url('images/family.jpg');
+        background-image: url('images/family2.jpg');
         background-size: 100% auto;
       }
 
@@ -93,6 +93,11 @@
       .uncle-bob {
         background-image: url('images/uncle_bob.png');
         background-size: 100% auto;
+      }
+
+      .horder {
+        background-image: url('images/horde.jpg');
+        background-size:  auto 100%;
       }
 
       .hoarder {
@@ -171,7 +176,7 @@ class: me
 ---
 class: center, top, family
 
-# Spawning Processes
+# Spawned Processes
 
 ???
 
@@ -193,7 +198,8 @@ class: meaning
   * Clothes
   * Jewelry
   * Macramé
-  * Password Reset Solutions
+  * Fault Tolerant Software
+  * Tie-dye
 
 ---
 
@@ -205,9 +211,9 @@ Using the DB
 ???
 
 * Password Reset System
-* Didn't want this
 * Better than another dependency for me
 * Slower than some dependencies
+* Didn't want this
 * Goes against living like a hippy
 
 ---
@@ -270,7 +276,7 @@ class: ddos
 
 ???
 
-* One less thing to worry about deploy
+* Configuring communication channels
 * need less experts
 
 ---
@@ -311,6 +317,12 @@ class: uncle-bob
 
 * Uncle Bob - Put off persistence as long as possible
 * Architecture - The Lost Years - 2011
+
+---
+
+class: horder
+
+# Horde(r)?
 
 ---
 
@@ -362,9 +374,9 @@ Temporary
 
 ???
 
-* Temporal - Relating to Time
-* Transient - lasting only a short time
-* Ephemeral - lasting for a very short time
+* Temporal - Relating to Time - current weather
+* Transient - lasting only a short time - Cache
+* Ephemeral - lasting for a very short time - Transport
 
 ---
 
@@ -384,6 +396,11 @@ class: agent
 class: agent-diagram
 
 # What It Looks Like
+
+???
+
+* separate business logic
+* failure is likely to happen there
 
 ---
 
@@ -410,6 +427,10 @@ defmodule PasswordReset.Hoard do
 
 end
 ```
+
+???
+
+* starting state
 
 ---
 
@@ -440,6 +461,7 @@ end
 ???
 
 * Agent.update/2
+* put user and token in
 
 ---
 
@@ -467,6 +489,10 @@ defmodule PasswordReset.Hoard do
 end
 ```
 
+???
+
+* grab the user out
+
 ---
 
 #Agent Code
@@ -493,6 +519,10 @@ defmodule PasswordReset.Hoard do
 end
 ```
 
+???
+
+* delete the user so the token can't be used again
+
 ---
 
 class: crashes
@@ -500,7 +530,6 @@ class: crashes
 # What about crashes?
 
 ???
-
 
 Keep the data you are storing focused
 "Let It Fail"
@@ -596,7 +625,7 @@ defmodule PasswordReset.Hoard do
 *   {:ok,FailoverStorage.load}
   end
 
-  #...
+  # add remove get_user
 
   def terminate(_reason, state) do
     FailoverStorage.dump(state)
@@ -616,7 +645,7 @@ defmodule PasswordReset.Hoard do
     {:ok,FailoverStorage.load}
   end
 
-  #...
+  # add remove get_user
 
   def terminate(_reason, state) do
 *   FailoverStorage.dump(state)
@@ -651,13 +680,10 @@ Gotchas
 
 ???
 
-* Memory bloat
 * better solution Signed Keys and user id in url
 * Move business logic away from
 
 cachex - elixir lib
-
-ecache - erlang lib
 
 Phoenix.Presence
 Chris McCord ElixirConf EU 2016 - Phoenix 1.2
@@ -682,7 +708,7 @@ Binary Data
 
 ---
 
-# Next Steps
+# What's Next
 
 * ETS
 * DETS
@@ -705,18 +731,16 @@ Binary Data
 
 ---
 
-# Hoarder Takeaways
+# How To Live Like a Hoarder
 
 * Agent good for temporal data
 * GenServer is your friend
 * Push logic to the bottom
-* Stask Failover Data at the Top
+* Stack fail over data at the top
 * Keep data in its own process
 * Always have a backup
 
 ???
-
-* Agentits
 
 ---
 
@@ -735,6 +759,9 @@ http://ferd.ca/the-zen-of-erlang.html
 
 McCord - Phoenix 1.2 and Beyond
 https://www.youtube.com/watch?v=n338leKvqnA
+
+Cachex
+https://github.com/zackehh/cachex
 
 ---
 
